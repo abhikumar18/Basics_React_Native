@@ -12,7 +12,12 @@ export default function App()
      onPress={()=>setIsModalVisible(true)} 
      color="midnightblue"
      />
-     <Modal visible={isModalVisible}>
+     <Modal 
+       visible={isModalVisible}
+       onRequestClose={()=>setIsModalVisible(false)}
+       animationType="slide"
+       presentationStyle="pageSheet"
+       >
        <View style={{flex:1,backgroundColor:"lightblue",padding:60}}>
        <Text>Modal Content</Text>
        <Button 
