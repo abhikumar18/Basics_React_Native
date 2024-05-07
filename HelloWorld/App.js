@@ -1,32 +1,34 @@
-import {View,StyleSheet,Text} from 'react-native';
+import {View,StyleSheet,Text,SafeAreaView} from 'react-native';
 import Box from './components/Box';
 
 export default function App () 
 {
   return (
+    <SafeAreaView style={styles.safeContainer}>
     <View style={styles.container}>
         <View style={styles.box}>
           <Text style={styles.text}>Welcome!</Text>
         </View>
     </View>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
+  safeContainer:{
+    flex:1,
+    backgroundColor:'plum'
+  },
   container:{
     flex:1,
     backgroundColor:"plum",
-    alignItems:"center",
-    justifyContent:"center"
   },
   box:{
-    width:300,
-    height:300,
-    backgroundColor:"lightblue",
-    alignItems:"center",
-    justifyContent:"center"
+    padding:20
   },
   text:{
     fontSize:24,
+    fontWeight:"bold",
+    textAlign:"center"
   }
 });
