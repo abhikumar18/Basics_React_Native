@@ -1,44 +1,88 @@
-import { View,StyleSheet,Text,ScrollView,SafeAreaView,StatusBar } from 'react-native';
+import { 
+  View,
+  StyleSheet,
+  Text,
+  Button,
+  TextInput,
+  Image,
+  KeyboardAvoidingView,
+  Platform
+} from 'react-native';
 import Box from './components/Box';
-import pokemonList from './data.json';
+import { useState } from 'react';
 
 export default function App () 
 {
+  const[username,setUsername] = useState("");
+  const[password,setPassword] = useState("");
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}> 
-      {pokemonList.map(pokemon => {
-          return (
-            
-            <View key={pokemon.id} style={styles.card}>
-               <Text style={styles.cardText}>{pokemon.type}</Text>
-               <Text style={styles.cardText}>{pokemon.name}</Text>
-            </View>
-            
-          )
-        })}
-      </ScrollView>
-    </SafeAreaView> 
+    <KeyboardAvoidingView 
+       style={styles.container} 
+       behavior="padding"
+       keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
+       >
+       <View style={styles.form}>
+        <Image source={require('./assets/adaptive-icon.png')} style={styles.image} />
+          <Text style={styles.label}>Username</Text>
+          <TextInput 
+           style={styles.input}
+           placeholder='Enter your username'
+           value={username}
+           onChangeText={setUsername}
+          />
+          <Text>Password</Text>
+          <TextInput 
+           style={styles.input}
+           placeholder='Enter your password'
+           secureTextEntry
+           value={password}
+           onChangeText={setPassword}
+          />
+          <Button title='Login' onPress={()=>{}} />
+       </View>
+    </KeyboardAvoidingView>
+      
   )
 }
 
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    backgroundColor:"#f5f5f5",
-    paddingTop:StatusBar.currentHeight,
+    justifyContent:'center',
+    paddingHorizontal:20,
+    backgroundColor:"#f5f5f5"
   },
-  scrollView :{
-    paddingHorizontal:16,
+  form:{
+    backgroundColor:'white',
+    padding:20,
+    borderRadius:10,
+    shadowColor:'black',
+    shadowOffset:{
+      width:0,
+      height:2,
+    },
+    shadowOpacity:0.25,
+    shadowRadius:4,
+    elevation:5,
   },
-  card:{
-    backgroundColor:"white",
-    padding:16,
-    borderRadius:8,
+  label:{
+    fontSize:16,
+    marginBottom:5,
+    fontWeight:"bold",
+  },
+  input:{
+    height:40,
+    borderColor:'#ddd',
     borderWidth:1,
-    marginBottom:16
+    marginBottom:15,
+    padding:10,
+    borderRadius:5,
   },
-  cardText:{
-    fontSize:30,
+  image:{
+    width:200,
+    height:400,
+    alignSelf:"center",
+    marginBottom:50
   }
+  
 });
