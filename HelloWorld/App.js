@@ -15,6 +15,28 @@ export default function App ()
 {
   const[username,setUsername] = useState("");
   const[password,setPassword] = useState("");
+  const[errors,setErrors] = useState({});
+
+  const validateForm = () => {
+    let errors ={}
+
+    if(!username) errors.username = "Username is required"
+    if(!password) errors.password = "Password is required"
+
+    setErrors(errors)
+    return Object.keys(errors).length === 0;
+  }
+
+  const handleSubmit = () => {
+    if(validateForm())
+      {
+        console.log("Submitted",username,password);
+        setUsername('');
+        setPassword('');
+        setErrors({});
+      }
+  }
+
   return (
     <KeyboardAvoidingView 
        style={styles.container} 
@@ -30,6 +52,9 @@ export default function App ()
            value={username}
            onChangeText={setUsername}
           />
+          {
+          errors.username ? <Text style={styles.errorText}>{errors.username}</Text> : null
+          }
           <Text>Password</Text>
           <TextInput 
            style={styles.input}
@@ -38,7 +63,10 @@ export default function App ()
            value={password}
            onChangeText={setPassword}
           />
-          <Button title='Login' onPress={()=>{}} />
+          {
+          errors.password ? <Text style={styles.errorText}>{errors.password}</Text> : null
+          }
+          <Button title='Login' onPress={handleSubmit} />
        </View>
     </KeyboardAvoidingView>
       
@@ -83,6 +111,10 @@ const styles = StyleSheet.create({
     height:400,
     alignSelf:"center",
     marginBottom:50
+  },
+  errorText:{
+    color:"red",
+    marginBottom:10
   }
   
 });
